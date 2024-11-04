@@ -19,14 +19,14 @@ $tokenCredential = $(az acr login --name $containerRegistry -t | ConvertFrom-Jso
 # Login to ACR using access token
 docker login $tokenCredential.loginServer --username 00000000-0000-0000-0000-000000000000 --password $tokenCredential.accessToken
 
-# Tag your local Docker image
-docker build ./src -t mile-app
+$acrTag = $containerRegistry + ".azurecr.io/mile:latest"
 
-docker tag mile-app:latest $containerRegistry/mile:latest
+# Tag your local Docker image
+docker build ../src -t $acrTag --platform linux/amd64
 
 # Push image to ACR
 echo "Push Mile image to ACR"
-docker push mileacrglobal.azurecr.io/mile:latest
+docker push $acrTag
 
 # list images in ACR
 echo "List images in ACR"
