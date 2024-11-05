@@ -1,6 +1,8 @@
 # Use an official Python image
 FROM python:3.9-slim-buster
 
+ENV PYTHONUNBUFFERED=1
+ENV ALLOWED_HOSTS=*
 # Set working directory
 WORKDIR /app
 
@@ -21,4 +23,3 @@ EXPOSE 8080
 
 # Run command
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]
-
